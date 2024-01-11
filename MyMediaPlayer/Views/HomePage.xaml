@@ -1,0 +1,57 @@
+﻿<Page x:Class="MyMediaPlayer.Views.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:MyMediaPlayer.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <!-- Thêm nút cho phép người dùng thêm media -->
+            <Button Content="Thêm Media"
+                    Click="AddMediaButton_Click"
+                    HorizontalAlignment="Right" />
+        </StackPanel>
+        <!-- GridView để hiển thị các media items -->
+        <GridView x:Name="MediaGridView"
+                  ItemsSource="{Binding MediaItems}"
+                  Grid.Row="1"
+                  ItemClick="MediaGridView_ItemClick"
+                  IsItemClickEnabled="True">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- Hiển thị hình ảnh -->
+                        <Border BorderBrush="LightGray"
+                                BorderThickness="1"
+                                Grid.Row="0"
+                                Margin="10, 10, 10, 10">
+                            <Image Width="150"
+                                   Height="150"
+                                   Stretch="UniformToFill"
+                                   Source="{Binding Thumbnail}" />
+                        </Border>
+
+                        <!-- Hiển thị tên dưới hình ảnh -->
+                        <TextBlock Text="{Binding Name}"
+                                   Width="150"
+                                   Grid.Row="1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontSize="15"
+                                   Margin="0,0,0,10" />
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </Grid>
+</Page>
