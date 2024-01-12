@@ -57,4 +57,12 @@ public class HomePageViewModel : ObservableRecipient
             }
         }
     }
+
+    public void RemoveItem(MediaItem item)
+    {
+        MediaItems.Remove(item);
+
+        // Lưu trạng thái sau khi xóa
+        Save();
+    }
 }

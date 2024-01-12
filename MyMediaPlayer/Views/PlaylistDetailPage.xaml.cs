@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -10,6 +11,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MyMediaPlayer.Models;
 using MyMediaPlayer.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -39,5 +41,14 @@ public sealed partial class PlaylistDetailPage : Page
             this.MediaItemList.ItemsSource = data;
 
         }
+    }
+
+    private void RemoveItem_Click(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+
+        var itemToRemove = (MediaItem)button.DataContext;
+
+        viewModel.RemoveItem(itemToRemove);
     }
 }
