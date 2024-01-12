@@ -18,7 +18,8 @@
               Width="700"
               CornerRadius="16"
               BorderBrush="Gray"
-              BorderThickness="1">
+              BorderThickness="1"
+              Name="Grid_Display_playlist">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"
                                   MinWidth="90" />
@@ -32,11 +33,11 @@
 
             <StackPanel Grid.Column="1"
                         VerticalAlignment="Center">
-                <TextBlock Text="Sơn Tùng"
+                <TextBlock Text="{Binding PlaylistName}"
                            FontSize="30"
                            FontWeight="Bold" />
                 <TextBlock>
-                           <Run Text="100"
+                           <Run Text="{Binding NumberOfSongs}"
                                 FontSize="15" />
                            <Run Text=" items"
                                 FontSize="15" />
@@ -44,14 +45,30 @@
 
                 <StackPanel Orientation="Horizontal"
                             Margin="0, 30, 0, 0">
-                    <Button Content="Play all"
-                            Margin="0, 0, 20, 0" />
-                    <Button Content="Add new item"
-                            Margin="0, 0, 20, 0" />
-                    <Button Content="Rename"
-                            Margin="0, 0, 20, 0" />
-                    <Button Content="Delete"
-                            Margin="0, 0, 20, 0" />
+                    <Button Margin="0, 0, 20, 0"
+                            Click="PlayAll_Click">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <SymbolIcon Symbol="Play" />
+                            <TextBlock Margin="5">Play all</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0, 0, 20, 0"
+                            Click="AddItem_Click">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <SymbolIcon Symbol="Add" />
+                            <TextBlock Margin="5">Add new item</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0, 0, 20, 0"
+                            Click="RenameItem_Click">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <SymbolIcon Symbol="Rename" />
+                            <TextBlock Margin="5">Rename</TextBlock>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -77,13 +94,16 @@
 
                         <StackPanel Grid.Column="1"
                                     VerticalAlignment="Center"
-                                    Margin="20, 20, 20, 20">
+                                    Margin="20, 20, 20, 20"
+                                    Name="SP_Name">
                             <TextBlock Text="{Binding Name}"
                                        FontSize="14"
                                        FontWeight="SemiBold" />
                         </StackPanel>
 
-                        <Button Content="Remove" Grid.Column="2" Click="RemoveItem_Click" />
+                        <Button Content="Remove"
+                                Grid.Column="2"
+                                Click="RemoveItem_Click" />
                     </Grid>
 
                 </DataTemplate>

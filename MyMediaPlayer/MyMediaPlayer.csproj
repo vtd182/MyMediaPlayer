@@ -20,6 +20,7 @@
     <None Remove="Views\CreatePlaylistDialog.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\PlaylistDetailPage.xaml" />
+    <None Remove="Views\RenamePlaylistDialog.xaml" />
   </ItemGroup>
 	
   <ItemGroup>
@@ -49,6 +50,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\RenamePlaylistDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\PlaylistDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

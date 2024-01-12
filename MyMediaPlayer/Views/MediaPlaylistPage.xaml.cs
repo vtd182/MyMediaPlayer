@@ -2,90 +2,75 @@
 using Microsoft.UI.Xaml.Controls;
 
 using MyMediaPlayer.ViewModels;
+using MyMediaPlayer.Models;
+
 using Windows.Foundation;
+using System.Diagnostics;
 
 namespace MyMediaPlayer.Views;
 
 public sealed partial class MediaPlaylistPage : Page
 {
-    public List<test> tests = new List<test>();
-
+    private static bool isLoaded = false;
     public MediaPlaylistViewModel ViewModel
     {
         get;
     }
 
+    private MediaPlaylistViewModel viewModel = MediaPlaylistViewModel.Instance;
+
     public MediaPlaylistPage()
     {
-        ViewModel = App.GetService<MediaPlaylistViewModel>();
         InitializeComponent();
-        tests.Add(new test("Yêu thích", 10));
-        tests.Add(new test("Sơn Tùng", 10));
-        tests.Add(new test("Hà nội tao & mẹ mày", 10));
-        this.listView.ItemsSource = tests;
-
-    }
-
-    public List<test> Playlists
-    {
-        get
+        if (!isLoaded)
         {
-            return tests;
+            MediaPlaylistViewModel.Instance.Load();
+            isLoaded = true;
         }
+        var data = viewModel.Playlists;
+        this.listView.ItemsSource = data;
+
     }
 
     private async void AddPlaylist_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        Debug.WriteLine("AddPlaylist_Click is calling ");
         var dialog = new CreatePlaylistDialog();
 
         dialog.XamlRoot = this.Content.XamlRoot;
         var result = await dialog.ShowAsync();
 
-        // Xử lý kết quả 
-        if (result == ContentDialogResult.Primary)
+        string playlistName = dialog.PlaylistName;
+        if (viewModel.Playlists != null && !string.IsNullOrEmpty(playlistName))
         {
-            // Lấy tên từ cửa sổ và thêm playlist
-            string playlistName = dialog.PlaylistName;
-            // Thêm logic để xử lý tên 
-        }
-    }
-
-    public class test
-    {
-        string _name;
-        int _songCount;
-        public test(string name, int count)
+            Debug.WriteLine("Add playlist " + playlistName);
+            viewModel.Playlists.Add(new MediaPlaylist(playlistName));
+            viewModel.Save();
+        } else
         {
-            _name = name;
-            _songCount = count;
-        }
-
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-            _name = value; }
-        }
-
-        public int SongCount
-        {
-            get
-            {
-                return _songCount;
-            }
-            set
-            {
-            _songCount = value; }
+            Debug.WriteLine("Nhập gì vào đi bạn ơi");
         }
     }
 
     private void ListView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        // Đoạn này sẽ gửi cái playlist cho page tiếp theo để có thể nghe nhạc.
-        Frame.Navigate(typeof(PlaylistDetailPage));
+        MediaPlaylist selectedPlaylist = (MediaPlaylist)e.ClickedItem;
+        if (selectedPlaylist != null)
+        {
+            int idx = viewModel.Playlists.IndexOf(selectedPlaylist);
+            if (idx != -1)
+            {
+                // Đoạn này sẽ gửi cái playlist cho page tiếp theo để có thể nghe nhạc.
+                Frame.Navigate(typeof(PlaylistDetailPage), idx);
+            }
+        }
+    }
+
+    private void Remove_Click(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+
+        var itemToRemove = (MediaPlaylist)button.DataContext;
+        viewModel.RemoveItem(itemToRemove);
     }
 }

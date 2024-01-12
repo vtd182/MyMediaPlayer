@@ -16,11 +16,13 @@ using MyMediaPlayer.Models.Enums;
 using MyMediaPlayer.ViewModels.Wrappers;
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
+using System.Collections.Specialized;
 
 namespace MyMediaPlayer.ViewModels;
 
 public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAware
 {
+    private MediaPlaylistViewModel mediaPlaylistViewModel = MediaPlaylistViewModel.Instance;
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly INavigationService _navigationService;
     private readonly IWindowPresenterService _windowPresenterService;
@@ -163,6 +165,14 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
             Debug.WriteLine("Skipping LibVLC initialization, because no media files specified.");
 
             return;
+        } else
+        {
+            Debug.WriteLine("ALL PATH");
+
+            foreach (string path in PlaylistPaths)
+            {
+                Debug.WriteLine(path);
+            }
         }
 
         _log.Information("Initializing LibVLC");
@@ -362,6 +372,13 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
                 PlaylistPaths.Add(path);
                 Debug.WriteLine("Add success");
                 Debug.WriteLine(path);
+            }
+        } else if (parameter is int idx)
+        {
+            var items = mediaPlaylistViewModel.Playlists[idx].Playlist;
+            foreach(var item in items)
+            {
+                PlaylistPaths.Add(item.FilePath);
             }
         }
     }

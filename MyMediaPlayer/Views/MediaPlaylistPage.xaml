@@ -15,7 +15,7 @@
         <CommandBar Grid.Row="0">
             <CommandBar.PrimaryCommands>
                 <AppBarButton Icon="Add"
-                              Label="Thêm Playlist"
+                              Label="Add Playlist"
                               Click="AddPlaylist_Click" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
@@ -31,6 +31,7 @@
                             <ColumnDefinition Width="Auto"
                                               MinWidth="80" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <FontIcon Grid.Column="0"
@@ -42,14 +43,21 @@
                         <StackPanel Grid.Column="1"
                                     VerticalAlignment="Center"
                                     Margin="20, 20, 20, 20">
-                            <TextBlock Text="{Binding Name}"
+                            <TextBlock Text="{Binding PlaylistName}"
                                        FontSize="20"
                                        FontWeight="Bold" />
                             <TextBlock>
-                                        <Run Text="{Binding SongCount}" />
+                                        <Run Text="{Binding NumberOfSongs}" />
                                         <Run Text=" items" />
                             </TextBlock>
                         </StackPanel>
+
+                        <AppBarButton Grid.Column="2"
+                                      Icon="Delete"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      Click="Remove_Click">
+                        </AppBarButton>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
