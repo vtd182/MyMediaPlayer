@@ -49,9 +49,6 @@ public sealed partial class PlaylistDetailPage : Page
 
         var itemToRemove = (MediaItem)button.DataContext;
 
-        viewModel.MediaItems.Remove(itemToRemove);
-
-        // Lưu trạng thái sau khi xóa
-        viewModel.Save();
+        viewModel.RemoveItem(itemToRemove);
     }
 }
