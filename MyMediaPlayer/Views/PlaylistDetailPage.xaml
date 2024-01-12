@@ -83,7 +83,7 @@
                                        FontWeight="SemiBold" />
                         </StackPanel>
 
-                        <Button Content="Remove" Grid.Column="2"/>
+                        <Button Content="Remove" Grid.Column="2" Click="RemoveItem_Click" />
                     </Grid>
 
                 </DataTemplate>
