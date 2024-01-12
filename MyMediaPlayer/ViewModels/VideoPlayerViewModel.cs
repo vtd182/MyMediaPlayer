@@ -182,30 +182,6 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
     }
 
-    private void reInit()
-    {
-        if (PlaylistPaths.Count == 0)
-        {
-            _log.Information("Skipping LibVLC initialization, because no media files specified.");
-            Debug.WriteLine("Skipping LibVLC initialization, because no media files specified.");
-
-            return;
-        }
-
-        _log.Information("Initializing LibVLC");
-
-        Player = new MediaPlayer(LibVLC);
-
-        foreach (var path in PlaylistPaths)
-        {
-            var media = new Media(LibVLC, new Uri(path));
-            Player.Play(media);
-            _log.Information("Starting playback of '{0}'", path);
-            Debug.WriteLine("Starting playback of '{0}'", path);
-        }
-
-        MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
-    }
 
     [RelayCommand]
     private void PointerMoved(PointerRoutedEventArgs? args)

@@ -17,7 +17,9 @@
   <ItemGroup>
     <None Remove="Styles\ControlBackground.xaml" />
     <None Remove="Styles\NavigationViewStyles.xaml" />
+    <None Remove="Views\CreatePlaylistDialog.xaml" />
     <None Remove="Views\HomePage.xaml" />
+    <None Remove="Views\PlaylistDetailPage.xaml" />
   </ItemGroup>
 	
   <ItemGroup>
@@ -47,6 +49,12 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\PlaylistDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\CreatePlaylistDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Styles\NavigationViewStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -60,6 +68,10 @@
 
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Themes\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

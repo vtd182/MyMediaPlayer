@@ -1,25 +1,59 @@
-﻿<Page
-    x:Class="MyMediaPlayer.Views.MediaPlaylistPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<Page x:Class="MyMediaPlayer.Views.MediaPlaylistPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
 
     <Grid x:Name="ContentArea">
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock
-            Grid.Row="0"
-            x:Uid="MediaPlaylist_Title"
-            Style="{StaticResource PageTitleStyle}" />
+        <!-- AppBar -->
+        <CommandBar Grid.Row="0">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Add"
+                              Label="Thêm Playlist"
+                              Click="AddPlaylist_Click" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+        <!-- Danh sách Playlist -->
+        <ListView Name="listView"
+                  Grid.Row="1"
+                  IsItemClickEnabled="True"
+                  ItemClick="ListView_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              MinWidth="80" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1">
-            
-        </Grid>
-        
+                        <FontIcon Grid.Column="0"
+                                  Glyph="&#xE93C;"
+                                  FontWeight="Light"
+                                  FontSize="70" />
+
+
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Margin="20, 20, 20, 20">
+                            <TextBlock Text="{Binding Name}"
+                                       FontSize="20"
+                                       FontWeight="Bold" />
+                            <TextBlock>
+                                        <Run Text="{Binding SongCount}" />
+                                        <Run Text=" items" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
     </Grid>
 </Page>

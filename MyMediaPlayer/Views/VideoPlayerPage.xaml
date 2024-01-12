@@ -1,4 +1,4 @@
-<Page x:Class="MyMediaPlayer.Views.VideoPlayerPage"
+﻿<Page x:Class="MyMediaPlayer.Views.VideoPlayerPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:MyMediaPlayer.Behaviors"
@@ -293,14 +293,18 @@
                             <KeyboardAccelerator Key="F" />
                         </AppBarButton.KeyboardAccelerators>
                     </usercontrols:AppBarWindowPresenterStateButton>
-                    <AppBarButton IsEnabled="False" Label="Effects">
+                    
+                    <!--Nút này để show danh sách đang phát-->
+                    <AppBarButton IsEnabled="True" Label="Current playlist">
                         <AppBarButton.Icon>
-                            <FontIcon Glyph="&#xF8A6;" />
+                            <FontIcon Glyph="&#xE90B;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton IsEnabled="False" Label="Subtitles">
+
+                    <!--Nút này để trộn bài-->
+                    <AppBarButton IsEnabled="True" Label="Subtitles">
                         <AppBarButton.Icon>
-                            <FontIcon Glyph="&#xED1E;" />
+                            <FontIcon Glyph="&#xE8B1;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
                     <AppBarSeparator />
