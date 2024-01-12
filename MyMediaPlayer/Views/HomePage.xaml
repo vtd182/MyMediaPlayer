@@ -11,12 +11,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <!-- Thêm nút cho phép người dùng thêm media -->
-            <Button Content="Thêm Media"
-                    Click="AddMediaButton_Click"
-                    HorizontalAlignment="Right" />
-        </StackPanel>
+
+        <CommandBar Grid.Row="0">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Add"
+                              Label="Add Media Items"
+                              Click="AddMediaButton_Click" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+        
         <!-- GridView để hiển thị các media items -->
         <GridView x:Name="MediaGridView"
                   ItemsSource="{Binding MediaItems}"
@@ -25,7 +28,7 @@
                   IsItemClickEnabled="True">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid CornerRadius="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
@@ -34,7 +37,8 @@
                         <Border BorderBrush="LightGray"
                                 BorderThickness="1"
                                 Grid.Row="0"
-                                Margin="10, 10, 10, 10">
+                                Margin="10, 10, 10, 10"
+                                CornerRadius="10">
                             <Image Width="150"
                                    Height="150"
                                    Stretch="UniformToFill"
