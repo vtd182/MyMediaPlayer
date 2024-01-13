@@ -17,6 +17,7 @@ using MyMediaPlayer.ViewModels.Wrappers;
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace MyMediaPlayer.ViewModels;
 
@@ -28,6 +29,23 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
     private readonly IWindowPresenterService _windowPresenterService;
     private readonly ILogger _log;
     private int currentMediaIndex;
+    private bool _isPlayAudio = false;
+
+    public bool IsPlayAudio
+    {
+        get
+        {
+            return _isPlayAudio;
+        }
+        set
+        {
+            _isPlayAudio = value;
+            OnPropertyChanged(nameof(IsPlayAudio));
+            Debug.WriteLine("Change: " + _isPlayAudio);
+        }
+    }
+
+
     public int CurrentMediaIndex
     {
         get => currentMediaIndex;
@@ -179,21 +197,14 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
             Debug.WriteLine("Skipping LibVLC initialization, because no media files specified.");
 
             return;
-        } else
-        {
-            Debug.WriteLine("ALL PATH");
-
-            foreach (string path in PlaylistPaths)
-            {
-                Debug.WriteLine(path);
-            }
         }
+
 
         _log.Information("Initializing LibVLC");
 
         LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
         Player = new MediaPlayer(LibVLC);
-        
+
         //foreach (var path in PlaylistPaths)
         //{
         //    FilePath = path;
@@ -203,10 +214,21 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         //    Debug.WriteLine($"Starting playback of '{path}'");
         //}
 
-        
+
 
         FilePath = PlaylistPaths[currentMediaIndex];
         var media = new Media(LibVLC, new Uri(FilePath));
+
+        string fileExtension = Path.GetExtension(FilePath)?.ToLower();
+        if (fileExtension == ".mp3")
+        {
+            IsPlayAudio = true;
+        }
+        else
+        {
+            IsPlayAudio = false;
+        }
+
         Player.Play(media);
         _log.Information($"Starting playback of '{FilePath}'");
 
@@ -388,6 +410,15 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
 
         // Set the new media.
         FilePath = PlaylistPaths[currentMediaIndex];
+        string fileExtension = Path.GetExtension(FilePath)?.ToLower();
+        if (fileExtension == ".mp3")
+        {
+            IsPlayAudio = true;
+        }
+        else
+        {
+            IsPlayAudio = false;
+        }
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
 
@@ -413,8 +444,17 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         }
 
         // Set the new media.
-        
+
         FilePath = PlaylistPaths[currentMediaIndex];
+        string fileExtension = Path.GetExtension(FilePath)?.ToLower();
+        if (fileExtension == ".mp3")
+        {
+            IsPlayAudio = true;
+        }
+        else
+        {
+            IsPlayAudio = false;
+        }
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
 
@@ -441,7 +481,17 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
 
         // Set the new media.
         FilePath = PlaylistPaths[currentMediaIndex];
+
         var media = new Media(LibVLC, new Uri(FilePath));
+        string fileExtension = Path.GetExtension(FilePath)?.ToLower();
+        if (fileExtension == ".mp3")
+        {
+            IsPlayAudio = true;
+        }
+        else
+        {
+            IsPlayAudio = false;
+        }
         Player.Play(media);
 
         _log.Information("PlayPrevious, new index {0}", currentMediaIndex);
@@ -470,10 +520,11 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
                 Debug.WriteLine("Add success");
                 Debug.WriteLine(path);
             }
-        } else if (parameter is int idx)
+        }
+        else if (parameter is int idx)
         {
             var items = mediaPlaylistViewModel.Playlists[idx].Playlist;
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 PlaylistPaths.Add(item.FilePath);
                 originalPlaylistPaths.Add(item.FilePath);
@@ -484,7 +535,15 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
 
     public void OnNavigatedFrom()
     {
-        Player.Stop();
+        try
+        {
+            Player.Stop();
+
+        }
+        catch
+        {
+            // eat
+        }
         //Player.Playing -= Player_Playing;
         //Player.TimeChanged -= Player_TimeChanged;
         //Player.Media.DurationChanged -= Media_DurationChanged;
