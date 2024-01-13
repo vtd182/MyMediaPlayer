@@ -193,7 +193,7 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
 
         LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
         Player = new MediaPlayer(LibVLC);
-
+        
         //foreach (var path in PlaylistPaths)
         //{
         //    FilePath = path;
@@ -202,6 +202,9 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         //    _log.Information($"Starting playback of '{path}'");
         //    Debug.WriteLine($"Starting playback of '{path}'");
         //}
+
+        
+
         FilePath = PlaylistPaths[currentMediaIndex];
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
@@ -410,6 +413,7 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         }
 
         // Set the new media.
+        
         FilePath = PlaylistPaths[currentMediaIndex];
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
@@ -480,6 +484,7 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
 
     public void OnNavigatedFrom()
     {
+        Player.Stop();
         //Player.Playing -= Player_Playing;
         //Player.TimeChanged -= Player_TimeChanged;
         //Player.Media.DurationChanged -= Media_DurationChanged;
@@ -496,13 +501,5 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         mediaPlayer?.Dispose();
         LibVLC?.Dispose();
         LibVLC = null;
-    }
-
-    public void UpdatePlaylist(ObservableCollection<string> paths)
-    {
-        if (paths != null)
-        {
-            PlaylistPaths = paths;
-        }
     }
 }

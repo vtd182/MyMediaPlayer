@@ -15,10 +15,12 @@
       mc:Ignorable="d">
     <Page.Resources>
         <converters:LongToDoubleConverter x:Key="LongToDoubleConverter" />
+        <converters:FilePathToFileNameConverter x:Key="FilePathToFileNameConverter" />
         <converters1:BoolNegationConverter x:Key="BoolNegationConverter" />
     </Page.Resources>
 
-    <Grid x:Name="ContentArea" VerticalAlignment="Stretch">
+    <Grid x:Name="ContentArea"
+          VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -34,7 +36,8 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center">
             <Image.Source>
-                <BitmapImage DecodePixelWidth="70" UriSource="ms-appx:///Assets/VLC_icon.ico" />
+                <BitmapImage DecodePixelWidth="70"
+                             UriSource="ms-appx:///Assets/VLC_icon.ico" />
             </Image.Source>
         </Image>
 
@@ -80,22 +83,27 @@
             </interactivity:Interaction.Behaviors>
             <lvs:VideoView.ContextFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Icon="Play" Text="Play">
+                    <MenuFlyoutItem Icon="Play"
+                                    Text="Play">
                         <MenuFlyoutItem.KeyboardAccelerators>
                             <!--  Conflicts with other accelerators  -->
                             <!--<KeyboardAccelerator Key="Space" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem Icon="Stop" Text="Stop">
+                    <MenuFlyoutItem Icon="Stop"
+                                    Text="Stop">
                         <MenuFlyoutItem.KeyboardAccelerators>
                             <!--  Conflicts with other accelerators  -->
                             <!--<KeyboardAccelerator Key="S" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem Icon="Previous" Text="Previous" />
-                    <MenuFlyoutItem Icon="Next" Text="Next" />
+                    <MenuFlyoutItem Icon="Previous"
+                                    Text="Previous" />
+                    <MenuFlyoutItem Icon="Next"
+                                    Text="Next" />
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Icon="View" Text="View">
+                    <MenuFlyoutItem Icon="View"
+                                    Text="View">
                         <MenuFlyoutItem.KeyboardAccelerators>
                             <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
@@ -116,13 +124,15 @@
                             <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem Icon="Add" Text="Open media">
+                    <MenuFlyoutItem Icon="Add"
+                                    Text="Open media">
                         <MenuFlyoutItem.KeyboardAccelerators>
                             <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Icon="Cancel" Text="Quit" />
+                    <MenuFlyoutItem Icon="Cancel"
+                                    Text="Quit" />
                 </MenuFlyout>
             </lvs:VideoView.ContextFlyout>
         </lvs:VideoView>
@@ -180,13 +190,15 @@
                     <AppBarSeparator />
 
                     <!--TODO: Implement Previous button-->
-                    <AppBarButton Command="{x:Bind ViewModel.PlayPreviousCommand}" IsEnabled="True" Label="Previous">
+                    <AppBarButton Command="{x:Bind ViewModel.PlayPreviousCommand}"
+                                  IsEnabled="True"
+                                  Label="Previous">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE892;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    
-                    
+
+
                     <AppBarButton Label="Rewind">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9E;" />
@@ -204,21 +216,24 @@
                                     </interactions:EventTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </KeyboardAccelerator>
-                            <KeyboardAccelerator Key="Left" Modifiers="Control">
+                            <KeyboardAccelerator Key="Left"
+                                                 Modifiers="Control">
                                 <interactivity:Interaction.Behaviors>
                                     <interactions:EventTriggerBehavior EventName="Invoked">
                                         <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
                                     </interactions:EventTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </KeyboardAccelerator>
-                            <KeyboardAccelerator Key="Left" Modifiers="Menu">
+                            <KeyboardAccelerator Key="Left"
+                                                 Modifiers="Menu">
                                 <interactivity:Interaction.Behaviors>
                                     <interactions:EventTriggerBehavior EventName="Invoked">
                                         <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
                                     </interactions:EventTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </KeyboardAccelerator>
-                            <KeyboardAccelerator Key="Left" Modifiers="Shift">
+                            <KeyboardAccelerator Key="Left"
+                                                 Modifiers="Shift">
                                 <interactivity:Interaction.Behaviors>
                                     <interactions:EventTriggerBehavior EventName="Invoked">
                                         <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
@@ -253,21 +268,24 @@
                                     </interactions:EventTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </KeyboardAccelerator>
-                            <KeyboardAccelerator Key="Right" Modifiers="Control">
+                            <KeyboardAccelerator Key="Right"
+                                                 Modifiers="Control">
                                 <interactivity:Interaction.Behaviors>
                                     <interactions:EventTriggerBehavior EventName="Invoked">
                                         <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
                                     </interactions:EventTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </KeyboardAccelerator>
-                            <KeyboardAccelerator Key="Right" Modifiers="Menu">
+                            <KeyboardAccelerator Key="Right"
+                                                 Modifiers="Menu">
                                 <interactivity:Interaction.Behaviors>
                                     <interactions:EventTriggerBehavior EventName="Invoked">
                                         <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
                                     </interactions:EventTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </KeyboardAccelerator>
-                            <KeyboardAccelerator Key="Right" Modifiers="Shift">
+                            <KeyboardAccelerator Key="Right"
+                                                 Modifiers="Shift">
                                 <interactivity:Interaction.Behaviors>
                                     <interactions:EventTriggerBehavior EventName="Invoked">
                                         <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
@@ -278,7 +296,9 @@
                     </AppBarButton>
 
                     <!--TODO: Implement Next button-->
-                    <AppBarButton Command="{x:Bind ViewModel.PlayNextCommand}" IsEnabled="True" Label="Next">
+                    <AppBarButton Command="{x:Bind ViewModel.PlayNextCommand}"
+                                  IsEnabled="True"
+                                  Label="Next">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE893;" />
                         </AppBarButton.Icon>
@@ -293,16 +313,20 @@
                             <KeyboardAccelerator Key="F" />
                         </AppBarButton.KeyboardAccelerators>
                     </usercontrols:AppBarWindowPresenterStateButton>
-                    
+
                     <!--Nút này để show danh sách đang phát-->
-                    <AppBarButton Command="{x:Bind ViewModel.TogglePlaylistVisibilityCommand}" IsEnabled="True" Label="Current playlist">
+                    <AppBarButton Command="{x:Bind ViewModel.TogglePlaylistVisibilityCommand}"
+                                  IsEnabled="True"
+                                  Label="Current playlist">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE90B;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
                     <!--Nút này để trộn bài-->
-                    <AppBarButton Command="{x:Bind ViewModel.ShuffleCommand}" IsEnabled="True" Label="Subtitles">
+                    <AppBarButton Command="{x:Bind ViewModel.ShuffleCommand}"
+                                  IsEnabled="True"
+                                  Label="Subtitles">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8B1;" />
                         </AppBarButton.Icon>
@@ -378,7 +402,7 @@
             </StackPanel>
         </Grid>
 
-        <ListView x:Name="PlaylistListView"
+        <!--<ListView x:Name="PlaylistListView"
               Grid.Row="0"
               Margin="10,10,10,10"
               ItemsSource="{x:Bind ViewModel.PlaylistPaths, Mode=OneWay}"
@@ -389,6 +413,27 @@
                     <TextBlock Text="{x:Bind}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
+        <Popup x:Name="PlaylistPopup"
+               IsOpen="{x:Bind ViewModel.IsPlaylistVisible, Mode=OneWay}"
+               Grid.Row="0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Width="700">
+            <Grid CornerRadius="16"
+                  Background="{ThemeResource ControlsBackground}">
+                <!-- Các phần tử khác nếu cần -->
+                <ListView x:Name="PlaylistListView"
+                          Margin="10,10,10,10"
+                          ItemsSource="{x:Bind ViewModel.PlaylistPaths, Mode=OneWay}"
+                          SelectedIndex="{x:Bind ViewModel.CurrentMediaIndex, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock Text="{x:Bind Converter={StaticResource FilePathToFileNameConverter}}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Popup>
     </Grid>
 </Page>
