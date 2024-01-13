@@ -27,8 +27,22 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
     private readonly INavigationService _navigationService;
     private readonly IWindowPresenterService _windowPresenterService;
     private readonly ILogger _log;
+    private int currentMediaIndex;
+    public int CurrentMediaIndex
+    {
+        get => currentMediaIndex;
+        set => SetProperty(ref currentMediaIndex, value);
+    }
 
     private ObservableCollection<string> playlistPaths = new ObservableCollection<string>();
+    private ObservableCollection<string> originalPlaylistPaths = new();
+
+    private bool isPlaylistVisible;
+    public bool IsPlaylistVisible
+    {
+        get => isPlaylistVisible;
+        set => SetProperty(ref isPlaylistVisible, value);
+    }
 
     public ObservableCollection<string> PlaylistPaths
     {
@@ -180,14 +194,18 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
         Player = new MediaPlayer(LibVLC);
 
-        foreach (var path in PlaylistPaths)
-        {
-            FilePath = path;
-            var media = new Media(LibVLC, new Uri(path));
-            Player.Play(media);
-            _log.Information("Starting playback of '{0}'", path);
-            Debug.WriteLine("Starting playback of '{0}'", path);
-        }
+        //foreach (var path in PlaylistPaths)
+        //{
+        //    FilePath = path;
+        //    var media = new Media(LibVLC, new Uri(path));
+        //    Player.Play(media);
+        //    _log.Information($"Starting playback of '{path}'");
+        //    Debug.WriteLine($"Starting playback of '{path}'");
+        //}
+        FilePath = PlaylistPaths[currentMediaIndex];
+        var media = new Media(LibVLC, new Uri(FilePath));
+        Player.Play(media);
+        _log.Information($"Starting playback of '{FilePath}'");
 
         MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
     }
@@ -356,6 +374,80 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         }
     }
 
+    [RelayCommand]
+    public void Shuffle()
+    {
+        var random = new Random();
+        var shuffledPlaylist = new ObservableCollection<string>(originalPlaylistPaths.OrderBy(x => random.Next()));
+
+        PlaylistPaths = shuffledPlaylist;
+        currentMediaIndex = 0;
+
+        // Set the new media.
+        FilePath = PlaylistPaths[currentMediaIndex];
+        var media = new Media(LibVLC, new Uri(FilePath));
+        Player.Play(media);
+
+        _log.Information("Shuffle, new index {0}", currentMediaIndex);
+    }
+
+    [RelayCommand]
+    public void PlayNext()
+    {
+        if (PlaylistPaths.Count == 0)
+        {
+            _log.Information("PlaylistPaths is empty.");
+            return;
+        }
+
+        // Increment the index.
+        currentMediaIndex++;
+
+        // If we're at the end of the list, wrap around to the start.
+        if (currentMediaIndex >= PlaylistPaths.Count)
+        {
+            currentMediaIndex = 0;
+        }
+
+        // Set the new media.
+        FilePath = PlaylistPaths[currentMediaIndex];
+        var media = new Media(LibVLC, new Uri(FilePath));
+        Player.Play(media);
+
+        _log.Information("PlayNext, new index {0}", currentMediaIndex);
+    }
+
+    [RelayCommand]
+    public void PlayPrevious()
+    {
+        if (PlaylistPaths.Count == 0)
+        {
+            _log.Information("PlaylistPaths is empty.");
+            return;
+        }
+
+        // Decrement the index.
+        currentMediaIndex--;
+
+        // If we're at the start of the list, wrap around to the end.
+        if (currentMediaIndex < 0)
+        {
+            currentMediaIndex = PlaylistPaths.Count - 1;
+        }
+
+        // Set the new media.
+        FilePath = PlaylistPaths[currentMediaIndex];
+        var media = new Media(LibVLC, new Uri(FilePath));
+        Player.Play(media);
+
+        _log.Information("PlayPrevious, new index {0}", currentMediaIndex);
+    }
+
+    [RelayCommand]
+    public void TogglePlaylistVisibility()
+    {
+        IsPlaylistVisible = !IsPlaylistVisible;
+    }
     public void OnNavigatedTo(object parameter)
     {
         //if (parameter is IReadOnlyList<IStorageItem> fileList)
@@ -370,6 +462,7 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
             foreach (var path in playlistPaths)
             {
                 PlaylistPaths.Add(path);
+                originalPlaylistPaths.Add(path);
                 Debug.WriteLine("Add success");
                 Debug.WriteLine(path);
             }
@@ -379,6 +472,8 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
             foreach(var item in items)
             {
                 PlaylistPaths.Add(item.FilePath);
+                originalPlaylistPaths.Add(item.FilePath);
+
             }
         }
     }

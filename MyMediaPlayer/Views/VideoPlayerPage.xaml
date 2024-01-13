@@ -180,7 +180,7 @@
                     <AppBarSeparator />
 
                     <!--TODO: Implement Previous button-->
-                    <AppBarButton IsEnabled="False" Label="Previous">
+                    <AppBarButton Command="{x:Bind ViewModel.PlayPreviousCommand}" IsEnabled="True" Label="Previous">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE892;" />
                         </AppBarButton.Icon>
@@ -278,7 +278,7 @@
                     </AppBarButton>
 
                     <!--TODO: Implement Next button-->
-                    <AppBarButton IsEnabled="False" Label="Next">
+                    <AppBarButton Command="{x:Bind ViewModel.PlayNextCommand}" IsEnabled="True" Label="Next">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE893;" />
                         </AppBarButton.Icon>
@@ -295,14 +295,14 @@
                     </usercontrols:AppBarWindowPresenterStateButton>
                     
                     <!--Nút này để show danh sách đang phát-->
-                    <AppBarButton IsEnabled="True" Label="Current playlist">
+                    <AppBarButton Command="{x:Bind ViewModel.TogglePlaylistVisibilityCommand}" IsEnabled="True" Label="Current playlist">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE90B;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
                     <!--Nút này để trộn bài-->
-                    <AppBarButton IsEnabled="True" Label="Subtitles">
+                    <AppBarButton Command="{x:Bind ViewModel.ShuffleCommand}" IsEnabled="True" Label="Subtitles">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8B1;" />
                         </AppBarButton.Icon>
@@ -377,5 +377,18 @@
                         Value="{x:Bind ViewModel.MediaPlayerWrapper.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=100}" />
             </StackPanel>
         </Grid>
+
+        <ListView x:Name="PlaylistListView"
+              Grid.Row="0"
+              Margin="10,10,10,10"
+              ItemsSource="{x:Bind ViewModel.PlaylistPaths, Mode=OneWay}"
+              SelectedIndex="{x:Bind ViewModel.CurrentMediaIndex, Mode=TwoWay}"
+              Visibility="{x:Bind ViewModel.IsPlaylistVisible, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <TextBlock Text="{x:Bind}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
