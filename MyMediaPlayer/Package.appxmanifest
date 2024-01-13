@@ -12,7 +12,7 @@
 
   <Identity
     Name="b1017696-1e50-459f-8c32-7c7200f1facb"
-    Publisher="CN=tsvet"
+    Publisher="CN=tdat"
     Version="1.0.0.0" />
     
   <mp:PhoneIdentity PhoneProductId="b1017696-1e50-459f-8c32-7c7200f1facb" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
@@ -20,7 +20,7 @@
   <Properties>
     <DisplayName>MyMediaPlayer</DisplayName>
     <PublisherDisplayName>tsvet</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\StoreLog.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -40,10 +40,16 @@
         DisplayName="ms-resource:AppDisplayName"
         Description="ms-resource:AppDescription"
         BackgroundColor="transparent"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png"/>
+        Square150x150Logo="Assets\Square150x150Log.png"
+        Square44x44Logo="Assets\Square44x44Log.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Log.png"  Square71x71Logo="Assets\SmallTil.png" Square310x310Logo="Assets\LargeTil.png" >
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\SplashScree.png"/>
       </uap:VisualElements>
       <Extensions>
           <desktop:Extension Category="windows.toastNotificationActivation">

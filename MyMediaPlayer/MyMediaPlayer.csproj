@@ -13,10 +13,54 @@
 	<Nullable>enable</Nullable>
 	<UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateKeyFile>MyMediaPlayer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <AppInstallerUri>https://drive.google.com/drive/folders/1O-0-Fmpx-fy0FT5IDMy5YdgxzKrQan-o%3fusp=sharing</AppInstallerUri>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\LargeTil.scale-100.png" />
+    <None Remove="Assets\LargeTil.scale-125.png" />
+    <None Remove="Assets\LargeTil.scale-150.png" />
+    <None Remove="Assets\LargeTil.scale-200.png" />
+    <None Remove="Assets\LargeTil.scale-400.png" />
     <None Remove="Assets\media.gif" />
     <None Remove="Assets\mymedia.png" />
+    <None Remove="Assets\SmallTil.scale-100.png" />
+    <None Remove="Assets\SmallTil.scale-125.png" />
+    <None Remove="Assets\SmallTil.scale-150.png" />
+    <None Remove="Assets\SmallTil.scale-200.png" />
+    <None Remove="Assets\SmallTil.scale-400.png" />
+    <None Remove="Assets\SplashScree.scale-100.png" />
+    <None Remove="Assets\SplashScree.scale-125.png" />
+    <None Remove="Assets\SplashScree.scale-150.png" />
+    <None Remove="Assets\SplashScree.scale-200.png" />
+    <None Remove="Assets\SplashScree.scale-400.png" />
+    <None Remove="Assets\Square150x150Log.scale-100.png" />
+    <None Remove="Assets\Square150x150Log.scale-125.png" />
+    <None Remove="Assets\Square150x150Log.scale-150.png" />
+    <None Remove="Assets\Square150x150Log.scale-200.png" />
+    <None Remove="Assets\Square150x150Log.scale-400.png" />
+    <None Remove="Assets\Square44x44Log.scale-100.png" />
+    <None Remove="Assets\Square44x44Log.scale-125.png" />
+    <None Remove="Assets\Square44x44Log.scale-150.png" />
+    <None Remove="Assets\Square44x44Log.scale-200.png" />
+    <None Remove="Assets\Square44x44Log.scale-400.png" />
+    <None Remove="Assets\StoreLog.scale-100.png" />
+    <None Remove="Assets\StoreLog.scale-125.png" />
+    <None Remove="Assets\StoreLog.scale-150.png" />
+    <None Remove="Assets\StoreLog.scale-200.png" />
+    <None Remove="Assets\StoreLog.scale-400.png" />
+    <None Remove="Assets\Wide310x150Log.scale-100.png" />
+    <None Remove="Assets\Wide310x150Log.scale-125.png" />
+    <None Remove="Assets\Wide310x150Log.scale-150.png" />
+    <None Remove="Assets\Wide310x150Log.scale-200.png" />
+    <None Remove="Assets\Wide310x150Log.scale-400.png" />
     <None Remove="Styles\ControlBackground.xaml" />
     <None Remove="Styles\NavigationViewStyles.xaml" />
     <None Remove="Views\CreatePlaylistDialog.xaml" />

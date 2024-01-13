@@ -36,7 +36,8 @@
                        Height="22"
                        HorizontalAlignment="Left">
                     <Image.Source>
-                        <BitmapImage DecodePixelWidth="32" UriSource="ms-appx:///Assets/VLC_icon.ico" />
+                        <BitmapImage DecodePixelWidth="32"
+                                     UriSource="ms-appx:///Assets/mymedia.png" />
                     </Image.Source>
                 </Image>
                 <TextBlock x:Name="AppTitleBarText"
@@ -138,11 +139,6 @@
                 </NavigationViewItem>
                 <NavigationViewItem helpers:NavigationHelper.NavigateTo="MyMediaPlayer.ViewModels.MediaPlaylistViewModel"
                                     Content="Media Playlist">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE8B2;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem helpers:NavigationHelper.NavigateTo="MyMediaPlayer.ViewModels.VideoPlayerViewModel" Content="Videos">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B2;" />
                     </NavigationViewItem.Icon>
